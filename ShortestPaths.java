@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Hashtable;
 import java.util.PriorityQueue;
 import java.util.Scanner;
@@ -370,6 +372,17 @@ public class ShortestPaths
 				//  distances as calculated by Dijkstra's algorithm
 				ArrayList<Node> dijkstraNodes = shortestPaths.findShortestPaths();
 
+				// Sort the printing of the set of nodes according to node ids
+				// Need to implement a new Comparator here because the natural
+				//  ordering of nodes is by the dist attribute
+				Collections.sort(dijkstraNodes, new Comparator<Node>() {
+					@Override
+					public int compare(Node n1, Node n2)
+					{
+						return n1.nodeId.compareTo(n2.nodeId);
+					}
+				});
+				
 				// Output each node's shortest path distance from the source
 				//  according to Dijkstra's to out.txt
 				outfile.println("Dijkstra");
@@ -410,6 +423,17 @@ public class ShortestPaths
 			//  dynamic programming algorithm
 			ArrayList<Node> reliablePaths = shortestPaths.findReliablePaths();
 
+			// Sort the printing of the set of nodes according to node ids
+			// Need to implement a new Comparator here because the natural
+			//  ordering of nodes is by the dist attribute
+			Collections.sort(reliablePaths, new Comparator<Node>() {
+				@Override
+				public int compare(Node n1, Node n2)
+				{
+					return n1.nodeId.compareTo(n2.nodeId);
+				}
+			});
+			
 			// Output the shortest path in # of hops (i.e. reliable path) for
 			//  each node according to the shortest reliable paths algorithm
 			outfile.println("Shortest Reliable Paths Algorithm");
